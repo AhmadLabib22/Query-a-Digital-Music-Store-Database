@@ -1,0 +1,60 @@
+Query 1
+Who are the Top 10 Customers based on sales?
+
+SELECT (Customer.FirstName || " " || Customer.LastName) as 'Customer Name', sum(invoice.total) as 'Sales'
+FROM Invoice
+JOIN Customer on Invoice.CustomerId = Customer.CustomerId
+GROUP by 1
+ORDER by 2 DESC
+LIMIT 10
+----------------------------------
+Query 2
+
+What are top 10 artist based on sales?
+
+SELECT Artist.name, sum(InvoiceLine.UnitPrice * InvoiceLine.Quantity) Sales
+FROM InvoiceLine
+JOIN Track ON InvoiceLine.trackid = Track.trackid
+JOIN Album ON Track.AlbumId = Album.AlbumId
+JOIN Artist on Album.ArtistId = Artist.ArtistId
+GROUP BY Artist.name
+ORDER BY Sales DESC
+LIMIT 10
+
+-------------------
+Query 3
+
+Query 1
+What are sales for each Sales Rep?
+
+SELECT (Employee.FirstName || " " || Employee.LastName) as 'Support Rep Name', sum(invoice.total) as 'Sales'
+FROM Invoice
+JOIN Customer on Invoice.CustomerId = Customer.CustomerId
+JOIN Employee on Customer.SupportRepId = Employee.EmployeeId
+GROUP by 1
+ORDER by 2 DESC
+----------------------------------------
+Query 4
+
+What are sales for each MediaType?
+
+SELECT MediaType.name, sum(InvoiceLine.UnitPrice * InvoiceLine.Quantity) Sales
+FROM InvoiceLine
+JOIN Track
+ON InvoiceLine.trackid = Track.trackid
+JOIN MediaType 
+ON MediaType.MediaTypeId = Track.MediaTypeId
+GROUP BY MediaType.name
+ORDER BY Sales DESC;
+-----------------------------------------------------
+
+What are sales for each Genre Type?
+
+SELECT Genre.name, sum(InvoiceLine.UnitPrice * InvoiceLine.Quantity) Sales
+FROM InvoiceLine
+JOIN Track
+ON InvoiceLine.trackid = Track.trackid
+JOIN Genre 
+ON Genre.GenreId = Track.GenreId
+GROUP BY Genre.name
+ORDER BY Sales DESC;
